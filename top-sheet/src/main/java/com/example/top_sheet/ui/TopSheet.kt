@@ -27,10 +27,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
-import androidx.wear.compose.material.SwipeableState
-import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
 import com.example.top_sheet.data.SheetState
+import com.example.top_sheet.data.TopSheetProperties
+import com.example.top_sheet.data.TopSheetState
+import com.example.top_sheet.data.rememberTopSheetState
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -39,7 +40,7 @@ import kotlin.math.roundToInt
 fun TopSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    sheetState: SwipeableState<SheetState> = rememberSwipeableState(initialValue = SheetState.Collapsed),
+    topSheetState: TopSheetState = rememberTopSheetState(),
     sheetHeight: Dp = TopSheetDefaults.SheetMaxHeight,
     sheetMaxWidth: Dp = TopSheetDefaults.SheetMaxWidth,
     shape: Shape = TopSheetDefaults.ExpandedShape,
@@ -60,20 +61,24 @@ fun TopSheet(
             0f to SheetState.Expanded
         )
 
-        if (sheetState.currentValue == SheetState.Expanded) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(scrimColor)
-                .clickable(enabled = properties.shouldDismissOnBackPress,
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }) {
-                    if (properties.shouldDismissOnBackPress) {
-                        scope.launch {
-                            sheetState.animateTo(SheetState.Collapsed)
-                            onDismissRequest.invoke()
+        if (topSheetState.currentValue == SheetState.Expanded) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(scrimColor)
+                    .clickable(
+                        enabled = properties.shouldDismissOnBackPress,
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) {
+                        if (properties.shouldDismissOnBackPress) {
+                            scope.launch {
+                                topSheetState.collapse()
+                                onDismissRequest.invoke()
+                            }
                         }
                     }
-                })
+            )
         }
 
         Surface(
@@ -83,29 +88,28 @@ fun TopSheet(
                 .widthIn(max = sheetMaxWidth)
                 .offset {
                     IntOffset(
-                        0, sheetState.offset.value.roundToInt()
+                        0,
+                        topSheetState.swipeableState.offset.value.roundToInt()
                     )
                 }
-                .swipeable(state = sheetState,
+                .swipeable(
+                    state = topSheetState.swipeableState,
                     anchors = anchors,
                     orientation = Orientation.Vertical,
                     reverseDirection = false,
-                    interactionSource = remember { MutableInteractionSource() })
+                    interactionSource = remember { MutableInteractionSource() }
+                )
                 .zIndex(1f),
             shape = shape,
             color = containerColor,
             contentColor = contentColor,
             tonalElevation = tonalElevation,
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
+            Column(modifier = Modifier.fillMaxSize()) {
                 content()
                 Spacer(modifier = Modifier.weight(1f))
                 if (dragHandle != null) {
-                    Box(
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    ) {
+                    Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                         dragHandle()
                     }
                 }
