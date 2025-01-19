@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TopSheetCompose"
 include(":app")
+include(":top-sheet")
