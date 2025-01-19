@@ -5,9 +5,9 @@ import androidx.compose.ui.window.SecureFlagPolicy
 
 @ExperimentalMaterial3Api
 class TopSheetProperties(
-    val securePolicy: SecureFlagPolicy,
-    val isFocusable: Boolean,
-    val shouldDismissOnBackPress: Boolean
+    val securePolicy: SecureFlagPolicy = SecureFlagPolicy.Inherit,
+    val isFocusable: Boolean = true,
+    val shouldDismissOnBackPress: Boolean = true
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
