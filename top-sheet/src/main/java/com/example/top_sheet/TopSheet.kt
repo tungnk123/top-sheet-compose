@@ -22,70 +22,61 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.SwipeableState
 import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
+import com.example.top_sheet.data.SheetState
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalWearMaterialApi::class)
 @Composable
 fun TopSheet(
+    modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
     sheetHeight: Dp,
     sheetState: SwipeableState<SheetState> = rememberSwipeableState(initialValue = SheetState.Collapsed),
+    backgroundColor: Color = Color.White,
+    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
+    enableDismissOnClickOutside: Boolean = true,
+    onDismiss: (() -> Unit)? = null
 ) {
     val scope = rememberCoroutineScope()
-
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         val sheetHeightPx = with(LocalDensity.current) { sheetHeight.toPx() }
         val anchors = mapOf(
-            -sheetHeightPx to SheetState.Collapsed,
-            0f to SheetState.Expanded
+            -sheetHeightPx to SheetState.Collapsed, 0f to SheetState.Expanded
         )
 
         if (sheetState.currentValue == SheetState.Expanded) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.5f))
-                    .clickable(
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    ) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(scrimColor)
+                .clickable(enabled = enableDismissOnClickOutside,
+                           indication = null,
+                           interactionSource = remember { MutableInteractionSource() }) {
+                    if (enableDismissOnClickOutside) {
                         scope.launch {
                             sheetState.animateTo(SheetState.Collapsed)
+                            onDismiss?.invoke()
                         }
                     }
-            )
+                })
         }
 
-        Surface(
-            modifier = Modifier
-                .offset {
-                    IntOffset(
-                        0,
-                        sheetState.offset.value.roundToInt()
-                    )
-                }
-                .swipeable(
-                    state = sheetState,
-                    anchors = anchors,
-                    orientation = Orientation.Vertical,
-                    reverseDirection = false,
-                    interactionSource = remember { MutableInteractionSource() }
+        Surface(modifier = Modifier
+            .offset {
+                IntOffset(
+                    0, sheetState.offset.value.roundToInt()
                 )
-                .zIndex(1f)
-        ) {
+            }
+            .swipeable(state = sheetState,
+                       anchors = anchors,
+                       orientation = Orientation.Vertical,
+                       reverseDirection = false,
+                       interactionSource = remember { MutableInteractionSource() })
+            .zIndex(1f),
+                color = backgroundColor) {
             Box(modifier = Modifier.height(sheetHeight)) {
                 sheetContent()
             }
         }
     }
 }
-
-enum class SheetState {
-    Expanded,
-    Collapsed
-}
-
-
-
-
