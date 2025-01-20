@@ -59,6 +59,8 @@ object TopSheetDefaults {
         @Composable
         get() = WindowInsets.systemBars.only(WindowInsetsSides.Vertical)
 
+    val IsDragHandleVisible = true
+
     /**
      * The optional visual drag handle for the TopSheet.
      */

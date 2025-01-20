@@ -50,6 +50,7 @@ fun TopSheet(
     scrimColor: Color = TopSheetDefaults.ScrimColor,
     windowInsets: WindowInsets = TopSheetDefaults.windowInsets,
     dragHandle: @Composable (() -> Unit)? = { TopSheetDefaults.DragHandle() },
+    isDragHandleVisible: Boolean = TopSheetDefaults.IsDragHandleVisible,
     properties: TopSheetProperties = TopSheetDefaults.properties(),
     content: @Composable () -> Unit,
 ) {
@@ -116,7 +117,7 @@ fun TopSheet(
                 ) {
                     content()
                 }
-                if (dragHandle != null) {
+                if (isDragHandleVisible && dragHandle != null) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
