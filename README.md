@@ -47,6 +47,8 @@ Here's an example of how to use the `TopSheet` component:
 ### Basic Example
 
 ```kotlin
+val topSheetState = rememberTopSheetState()
+
 TopSheet(
     modifier = modifier,
     sheetHeight = 300.dp,
@@ -86,10 +88,12 @@ You can customize the `TopSheet` properties such as:
 Example with customization:
 
 ```kotlin
+val topSheetState = rememberTopSheetState()
+
 TopSheet(
     modifier = modifier,
     sheetHeight = 500.dp,
-    topSheetState = advancedTopSheetState,
+    topSheetState = topSheetState,
     containerColor = Color.Black,
     contentColor = Color.Blue,
     scrimColor = Color.Black.copy(alpha = 0.7f),
