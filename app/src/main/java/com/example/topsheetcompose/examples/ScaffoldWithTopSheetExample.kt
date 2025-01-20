@@ -51,7 +51,6 @@ fun ScaffoldWithTopSheetExample(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Show Top Sheet Button
                     Button(
                         onClick = {
                             scope.launch {
