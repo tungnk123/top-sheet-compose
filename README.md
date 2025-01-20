@@ -46,26 +46,78 @@ Here's an example of how to use the `TopSheet` component:
 
 ### Basic Example
 
+```kotlin
+TopSheet(
+    modifier = modifier,
+    sheetHeight = 300.dp,
+    topSheetState = topSheetState,
+    onDismissRequest = {},
+    content = {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+        ) {
+            Text("This is a simple top sheet", Modifier.padding(16.dp))
+        }
+    },
+)
+```
+
 ### Customization
 
 You can customize the `TopSheet` properties such as:
 
-- **`shape`**: Customize the shape of the top sheet.
-- **`containerColor`**: Set the background color.
-- **`scrimColor`**: Adjust the overlay color.
-- **`sheetHeight`**: Specify the maximum height of the sheet.
+- **`modifier`**: Customize the outer layout of the `TopSheet`.
+- **`sheetHeight`**: Maximum height of the top sheet.
+- **`sheetMaxWidth`**: Maximum width of the top sheet.
+- **`topSheetState`**: State of the top sheet (`Expanded`, `Collapsed`).
+- **`shape`**: Shape of the top sheet (rounded corners, rectangle, etc.).
+- **`containerColor`**: Background color of the top sheet.
+- **`contentColor`**: Content color inside the top sheet.
+- **`scrimColor`**: Dimmed overlay color behind the top sheet.
+- **`tonalElevation`**: Elevation for the top sheet's shadow.
+- **`windowInsets`**: Insets of the sheet relative to the screen edges.
+- **`dragHandle`**: A composable to display the drag handle.
+- **`isDragHandleVisible`**: Whether the drag handle is visible.
+- **`properties`**: Configuration options, such as dismiss behavior.
+- **`onDismissRequest`**: Callback invoked when the sheet should be dismissed.
 
 Example with customization:
 
 ```kotlin
 TopSheet(
-    onDismissRequest = { isTopSheetVisible = false },
-    sheetHeight = 300.dp,
-    containerColor = Color.White,
-    scrimColor = Color.Black.copy(alpha = 0.5f),
+    modifier = modifier,
+    sheetHeight = 500.dp,
+    topSheetState = advancedTopSheetState,
+    containerColor = Color.Black,
+    contentColor = Color.Blue,
+    scrimColor = Color.Black.copy(alpha = 0.7f),
+    tonalElevation = 20.dp,
+    isDragHandleVisible = true,
+    onDismissRequest = {},
+    dragHandle = {
+        Box(
+            modifier = Modifier
+                .background(Color.Red, shape = RoundedCornerShape(20.dp))
+                .padding(16.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_drag),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    },
     content = {
-        Text("Customized Top Sheet Content")
-    }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.LightGray)
+        ) {
+            Text("This is a advanced top sheet", Modifier.padding(16.dp))
+        }
+    },
 )
 ```
 
