@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.topsheetcompose"
+    namespace = "com.tungnk123.topsheetcompose"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.topsheetcompose"
+        applicationId = "com.tungnk123.topsheetcompose"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

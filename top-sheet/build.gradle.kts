@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    `maven-publish`
 }
 
 android {
-    namespace = "com.example.top_sheet"
+    namespace = "com.tungnk123.top_sheet"
     compileSdk = 34
 
     defaultConfig {
