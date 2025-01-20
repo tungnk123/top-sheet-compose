@@ -58,7 +58,7 @@ fun TopSheet(
         val sheetHeightPx = with(LocalDensity.current) { sheetHeight.toPx() }
         val anchors = mapOf(
             (-sheetHeightPx - windowInsets.getTop(LocalDensity.current)) to SheetState.Collapsed,
-            0f to SheetState.Expanded
+            windowInsets.getTop(LocalDensity.current).toFloat() to SheetState.Expanded
         )
 
         if (topSheetState.currentValue == SheetState.Expanded) {
