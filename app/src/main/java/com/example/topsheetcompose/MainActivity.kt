@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.topsheetcompose.examples.SimpleTopSheetExample
+import com.example.topsheetcompose.examples.TopSheetExample
 import com.example.topsheetcompose.ui.theme.TopSheetComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TopSheetComposeTheme {
-                SimpleTopSheetExample()
+                TopSheetExample()
             }
         }
     }

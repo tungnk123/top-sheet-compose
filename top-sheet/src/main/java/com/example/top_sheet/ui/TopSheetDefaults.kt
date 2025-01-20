@@ -68,7 +68,7 @@ object TopSheetDefaults {
         width: Dp = 36.dp,
         height: Dp = 4.dp,
         shape: Shape = MaterialTheme.shapes.extraLarge,
-        color: Color = MaterialTheme.colorScheme.surfaceVariant,
+        color: Color = MaterialTheme.colorScheme.surfaceTint,
     ) {
         Surface(
             modifier = modifier.padding(vertical = DragHandleVerticalPadding),
