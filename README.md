@@ -53,6 +53,11 @@ Here's an example of how to use the `TopSheet` component:
 ```kotlin
 val topSheetState = rememberTopSheetState()
 
+scope.launch {
+    topSheetState.expand()
+    topSheetState.collapse()
+}
+
 TopSheet(
     modifier = modifier,
     sheetHeight = 300.dp,
@@ -128,7 +133,14 @@ TopSheet(
     },
 )
 ```
+## TopSheetState Operations
+The TopSheetState class provides the following operations:
 
+- `currentValue`: Retrieves the current state (Expanded or Collapsed).
+- `expand()`: Expands the top sheet.
+- `collapse()`: Collapses the top sheet.
+- `animateTo(targetValue: SheetState)`: Animates the top sheet to a target state.
+- `confirmStateChange`: Callback to validate state changes before they occur.
 ---
 
 ## Note on Using `TopSheet` with `Scaffold`
