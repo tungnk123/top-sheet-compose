@@ -2,6 +2,10 @@
 
 A library for creating top sheets in Jetpack Compose.
 
+## Demo
+
+https://github.com/user-attachments/assets/f522f58f-2b17-4591-9141-1b6c48475252
+
 ## Features
 
 - Simple and customizable API for top sheet components.
@@ -124,6 +128,14 @@ TopSheet(
     },
 )
 ```
+
+---
+
+## Note on Using `TopSheet` with `Scaffold`
+
+When using the `TopSheet` component in a layout with a `Scaffold`, **ensure that the `TopSheet` is placed outside the `Scaffold`'s content hierarchy.** This is because `Scaffold` manages its own internal layout and can interfere with the behavior and positioning of the `TopSheet`.
+
+For a detailed example, refer to [this example on GitHub](https://github.com/tungnk123/top-sheet-compose/blob/develop/app/src/main/java/com/tungnk123/topsheetcompose/examples/ScaffoldWithTopSheetExample.kt).
 
 ---
 
