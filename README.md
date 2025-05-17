@@ -151,6 +151,16 @@ For a detailed example, refer to [this example on GitHub](https://github.com/tun
 
 ---
 
+## Note on Using TopSheet with `windowInsets`
+
+When you experience unexpected padding or offset issues with your `TopSheet`, especially related to system bars or insets, you can try explicitly setting:
+
+```kotlin
+windowInsets = WindowInsets(0, 0, 0, 0)
+```
+
+---
+
 ## Contributions
 
 Contributions are welcome! If you find any bugs or have feature requests, please open an issue or submit a pull request on [GitHub](https://github.com/tungnk123/top-sheet-compose).
